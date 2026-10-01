@@ -2,6 +2,8 @@
 
 > Advanced Business Programming · Week 5 · Team Practice
 > 카페 에이전트의 형식을 그대로 가져오고, 아이디어만 "동아리 시설 예약"으로 바꾼 프로젝트입니다.
+>
+> 🔗 **배포 링크**: https://club-agent-gyzwxho2qpq3k9tetz7bcj.streamlit.app/
 
 ---
 
@@ -138,6 +140,8 @@ python -m pytest tests           # 도구 테스트 (LLM 불필요)
 
 ## 12. 참고 자료
 
+- **배포된 에이전트(웹 UI)**: https://club-agent-gyzwxho2qpq3k9tetz7bcj.streamlit.app/
+- GitHub 저장소: https://github.com/LSJ5024/club-agent
 - 도구 명세: `docs/03_tool_spec.md`
 - 테스트 시나리오: `tests/scenarios.md`
 - 발표 브리핑(비교·데모 스크립트): https://claude.ai/artifact/7rRb9z2nsdzZx9SkSoFnvH
