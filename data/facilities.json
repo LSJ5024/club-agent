@@ -1,0 +1,7 @@
+{
+  "세미나실A": {"capacity": 20, "open_time": "09:00", "close_time": "22:00", "equipment": ["프로젝터", "화이트보드"], "hourly_rate": 10000},
+  "세미나실B": {"capacity": 15, "open_time": "09:00", "close_time": "22:00", "equipment": ["화이트보드"], "hourly_rate": 8000},
+  "대강당": {"capacity": 200, "open_time": "09:00", "close_time": "21:00", "equipment": ["음향시설", "프로젝터", "마이크"], "hourly_rate": 50000},
+  "동아리방": {"capacity": 10, "open_time": "08:00", "close_time": "23:00", "equipment": ["테이블", "소파"], "hourly_rate": 0},
+  "스튜디오": {"capacity": 8, "open_time": "10:00", "close_time": "20:00", "equipment": ["카메라", "조명"], "hourly_rate": 15000}
+}

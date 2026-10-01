@@ -1,0 +1,359 @@
+<title>동아리 예약 에이전트 브리핑</title>
+<style>
+  :root {
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --surface-2: #eef1f5;
+    --text: #1b2430;
+    --text-muted: #5b6878;
+    --primary: #1f3a5f;
+    --primary-soft: #e7edf5;
+    --accent: #0f8b8d;
+    --accent-soft: #e2f4f3;
+    --border: #dde3ea;
+    --good: #1f7a3d;
+    --good-soft: #e6f4ea;
+    --warn: #9a6400;
+    --warn-soft: #fbf0d9;
+    --code-bg: #f0f3f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1620;
+      --surface: #16202c;
+      --surface-2: #1c2834;
+      --text: #e8edf3;
+      --text-muted: #93a1b0;
+      --primary: #8fb8e6;
+      --primary-soft: #1d2d42;
+      --accent: #45cfd1;
+      --accent-soft: #113236;
+      --border: #28323f;
+      --good: #6fcf97;
+      --good-soft: #16301f;
+      --warn: #e0b84f;
+      --warn-soft: #332a10;
+      --code-bg: #101922;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1620;
+    --surface: #16202c;
+    --surface-2: #1c2834;
+    --text: #e8edf3;
+    --text-muted: #93a1b0;
+    --primary: #8fb8e6;
+    --primary-soft: #1d2d42;
+    --accent: #45cfd1;
+    --accent-soft: #113236;
+    --border: #28323f;
+    --good: #6fcf97;
+    --good-soft: #16301f;
+    --warn: #e0b84f;
+    --warn-soft: #332a10;
+    --code-bg: #101922;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); }
+  .page {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 40px 16px 80px;
+    font-family: "Inter", -apple-system, "Pretendard", sans-serif;
+    line-height: 1.65;
+  }
+  h1, h2, h3 {
+    font-family: "Source Serif 4", Georgia, serif;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: 2rem; margin: 0 0 6px; text-wrap: balance; }
+  .subtitle { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 32px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  section { margin-top: 44px; }
+  h2 { font-size: 1.35rem; margin: 0 0 4px; }
+  .section-note { color: var(--text-muted); font-size: 0.92rem; margin: 0 0 16px; }
+  p { margin: 10px 0; }
+
+  .one-liner {
+    background: var(--primary-soft);
+    border-left: 3px solid var(--primary);
+    padding: 16px 20px;
+    border-radius: 6px;
+    font-size: 1.08rem;
+    font-weight: 500;
+  }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; background: var(--surface); }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  thead th {
+    background: var(--surface-2);
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.highlight { color: var(--accent); font-weight: 600; }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86em;
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.84rem;
+    line-height: 1.6;
+  }
+
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .card h3 { font-size: 0.98rem; margin: 0 0 6px; font-family: "Inter", sans-serif; font-weight: 700; }
+  .card p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .step-num {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-family: "Source Serif 4", serif;
+  }
+  .step h3 { margin: 0 0 4px; font-size: 0.98rem; }
+  .step .say {
+    margin-top: 6px;
+    background: var(--surface-2);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.88rem;
+  }
+  .step .say .label { color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 2px; }
+
+  .pill { display: inline-block; font-size: 0.74rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+  .pill.read { background: var(--accent-soft); color: var(--accent); }
+  .pill.write { background: var(--warn-soft); color: var(--warn); }
+  .pill.compute { background: var(--primary-soft); color: var(--primary); }
+
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+  .check-item { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; }
+  .check-dot {
+    flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--good-soft); color: var(--good);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 700; margin-top: 2px;
+  }
+
+  .footer-note {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.84rem;
+  }
+</style>
+
+<div class="page">
+  <span class="eyebrow">Week 5 · Build Your Own Agent</span>
+  <h1>동아리 시설 예약 에이전트</h1>
+  <p class="subtitle">카페 에이전트 대비 무엇이 같고 무엇이 새로운가 — 발표 노트</p>
+
+  <section>
+    <h2>한 줄 소개</h2>
+    <div class="one-liner">
+      동아리 간부가 세미나실·대강당·동아리방·스튜디오를 예약할 때, <strong>시간이 겹치지 않는 빈 시간대를 직접 찾아 예약</strong>까지 해주는 비서입니다.
+    </div>
+  </section>
+
+  <section>
+    <h2>구조: 그대로 복사한 것 vs 새로 만든 것</h2>
+    <p class="section-note">에이전트 루프, LLM 연결, 설정은 커피도 시설도 모릅니다 — 도메인 지식은 전부 도구와 데이터에 들어 있습니다.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>그대로 복사 (수정 없음)</h3>
+        <p><code>config.py</code> · <code>llm_client.py</code> · <code>agent.py</code> · <code>main.py</code> · <code>data_store.py</code> · <code>calculator.py</code></p>
+      </div>
+      <div class="card">
+        <h3>새로 작성</h3>
+        <p><code>facility_tools.py</code> · <code>schedule_tools.py</code> · <code>data/*.json</code> · <code>tool_spec.md</code> · <code>system_prompt.md</code> · <code>test_tools.py</code> · <code>app.py</code>(웹 UI, 카페 패턴 참고해 재작성)</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>도구 비교</h2>
+    <p class="section-note">4개 전부 새로 설계한 도구이고, <code>calculate</code>만 그대로 재사용했습니다.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>분류</th><th>카페 에이전트</th><th>동아리 시설 예약 에이전트</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pill read">read</span></td>
+            <td><code>get_menu</code> · <code>check_stock</code></td>
+            <td><code>get_facility_info</code> · <code>check_schedule</code></td>
+          </tr>
+          <tr>
+            <td><span class="pill compute">compute</span></td>
+            <td><code>calculate</code></td>
+            <td><code>calculate</code>(재사용) · <code class="highlight">find_available_slot</code></td>
+          </tr>
+          <tr>
+            <td><span class="pill write">write</span></td>
+            <td><code>record_sale</code></td>
+            <td><code>reserve_facility</code></td>
+          </tr>
+          <tr>
+            <td>집계 리포트</td>
+            <td><code>get_sales_report</code></td>
+            <td><em style="color:var(--text-muted)">없음 — 다음 스트레치 과제 후보</em></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>핵심 차별점: <code>find_available_slot</code></h2>
+    <p class="section-note">카페에는 "같은 시간, 같은 자리"를 두 손님이 다툴 일이 없습니다. 우리 도구는 그 문제를 푸는 구간 스케줄링 계산입니다.</p>
+    <pre>cursor = 운영 시작 시각
+for 예약 in 그날의_예약들_시작시간순:
+    if 예약.시작 - cursor &gt;= 원하는_길이:
+        return [cursor, cursor + 원하는_길이]   # 빈 틈 발견
+    cursor = max(cursor, 예약.종료)
+if 운영_종료 - cursor &gt;= 원하는_길이:
+    return [cursor, cursor + 원하는_길이]        # 마지막 틈
+return 없음</pre>
+    <p>예약과 예약 사이의 <strong>틈(gap)</strong>을 순서대로 검사한다는 점이 <code>get_menu</code>·<code>check_stock</code>처럼 "지금 값 하나 조회"와 다른 부분입니다. <code>reserve_facility</code>도 같은 충돌 검사를 쓰고, 실패하면 에러 메시지가 <code>"find_available_slot을 호출하라"</code>고 다음 행동을 알려줍니다 — 그냥 거부가 아니라 복구 경로 제시.</p>
+  </section>
+
+  <section>
+    <h2>"이름만 바꾸기" 테스트로 검증</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>도구</th><th>카페 단어로 바꾸면</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><td><code>check_schedule</code></td><td>"커피의 일정?"</td><td style="color:var(--good)">의미 없음 → 통과</td></tr>
+          <tr><td><code>find_available_slot</code></td><td>"커피가 빌 시간?"</td><td style="color:var(--good)">의미 없음 → 통과</td></tr>
+          <tr><td><code>reserve_facility</code></td><td>"커피 예약?"</td><td style="color:var(--warn)">구조는 record_sale과 비슷하지만, 운영시간·충돌 이중 검증 로직이 추가됨</td></tr>
+          <tr><td><code>get_facility_info</code></td><td>"메뉴 정보?"</td><td style="color:var(--warn)">get_menu와 구조 유사 (정보 조회) — 그래서 차별화 근거는 아님</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>검증하며 배운 것</h2>
+    <p class="section-note">단순히 "작동했다"가 아니라, 실제로 돌려보며 고친 과정입니다.</p>
+    <div class="checklist">
+      <div class="check-item"><span class="check-dot">✓</span><span><code>pytest</code> 21개 전부 통과 (read/write/compute 전 도구, 정상·오류 케이스)</span></div>
+      <div class="check-item"><span class="check-dot">✓</span><span>실제 LLM로 3개 시나리오(연쇄 호출 / 쓰기 전 확인 / 오류 회복) 라이브 테스트</span></div>
+      <div class="check-item"><span class="check-dot">!</span><span>1차 모델(<code>gpt-oss-20b</code>)은 사용자가 "예약해줘"라고 확인해도 도구를 호출하지 않거나, 오류 상황에서 존재하지 않는 시설 이름을 지어냄</span></div>
+      <div class="check-item"><span class="check-dot">✓</span><span>에이전트 코드가 아니라 <strong>모델(<code>gpt-oss-120b</code>)</strong>과 <strong>시스템 프롬프트 규칙</strong>을 고쳐 해결 → 슬라이드 18 원칙("틀리면 코드 말고 설명/프롬프트") 실제 적용</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3분 데모 순서</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>한 문장 소개</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:0.9rem;">"동아리 간부가 학교 시설을 예약할 때 시간 겹침 없이 빈 시간을 찾아주는 에이전트입니다."</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>3-도구 연쇄 — 라이브</h3>
+          <div class="say"><span class="label">입력</span>"세미나실A 2026년 10월 2일에 2시간 비는 시간에 토론동아리 정기 회의로 예약해 줘. 대관료도 알려줘." → "네, 예약해 주세요."</div>
+          <p style="margin:6px 0 0; color:var(--text-muted); font-size:0.85rem;">기대 흐름: <code>get_facility_info</code> → <code>find_available_slot</code> → <code>calculate</code> → (확인 질문) → <code>reserve_facility</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>오류 회복 — 라이브</h3>
+          <div class="say"><span class="label">입력</span>"소강당 2026년 10월 3일 일정 알려줘." (존재하지 않는 시설)</div>
+          <p style="margin:6px 0 0; color:var(--text-muted); font-size:0.85rem;">기대 흐름: <code>check_schedule</code> → 오류 → <code>get_facility_info</code> → 실제 시설 5개를 정확히 안내</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>도구 설명</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:0.9rem;">교수자가 지목한 팀원이 자기 담당 도구의 Purpose / Parameters / Errors를 코드로 보여주며 설명</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>팀 역할</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>팀원</th><th>담당 도구</th><th>파일</th></tr></thead>
+        <tbody>
+          <tr><td>Member 1 (Lead + Designer)</td><td><code>get_facility_info</code> · <code>find_available_slot</code></td><td><code>facility_tools.py</code></td></tr>
+          <tr><td>Member 2 (Driver + Tester)</td><td><code>check_schedule</code> · <code>reserve_facility</code></td><td><code>schedule_tools.py</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>요구사항 체크</h2>
+    <div class="checklist">
+      <div class="check-item"><span class="check-dot">✓</span><span>새 도구 4개 (<code>calculate</code> 제외): get_facility_info, check_schedule, find_available_slot, reserve_facility</span></div>
+      <div class="check-item"><span class="check-dot">✓</span><span>read / write / compute 세 종류 모두 포함</span></div>
+      <div class="check-item"><span class="check-dot">✓</span><span>카페에 없는 도구: find_available_slot</span></div>
+      <div class="check-item"><span class="check-dot">✓</span><span>로컬 JSON 데이터: facilities.json, reservations.json</span></div>
+      <div class="check-item"><span class="check-dot">✓</span><span>쓰기 전 확인: reserve_facility</span></div>
+      <div class="check-item"><span class="check-dot">✓</span><span>시나리오 3개 + 추가 웹 UI(Streamlit)까지 구현</span></div>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    club-facility-agent · Week 5 Team Practice · 발표 전 체크: <code>pytest tests</code> 통과 확인, <code>data/reservations.json</code> 원본 상태로 리셋
+  </div>
+</div>

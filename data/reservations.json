@@ -1,0 +1,60 @@
+{
+  "records": [
+    {
+      "facility": "세미나실A",
+      "date": "2026-10-02",
+      "start_time": "10:00",
+      "end_time": "12:00",
+      "club_name": "컴퓨터공학회",
+      "purpose": "스터디 모임"
+    },
+    {
+      "facility": "세미나실A",
+      "date": "2026-10-02",
+      "start_time": "14:00",
+      "end_time": "16:00",
+      "club_name": "토론동아리",
+      "purpose": "정기 토론회"
+    },
+    {
+      "facility": "대강당",
+      "date": "2026-10-03",
+      "start_time": "18:00",
+      "end_time": "21:00",
+      "club_name": "총학생회",
+      "purpose": "신입생 환영회"
+    },
+    {
+      "facility": "세미나실B",
+      "date": "2026-10-02",
+      "start_time": "09:00",
+      "end_time": "10:30",
+      "club_name": "사진동아리",
+      "purpose": "사진 전시 회의"
+    },
+    {
+      "facility": "스튜디오",
+      "date": "2026-10-04",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "club_name": "방송동아리",
+      "purpose": "영상 촬영"
+    },
+    {
+      "facility": "동아리방",
+      "date": "2026-10-02",
+      "start_time": "19:00",
+      "end_time": "21:00",
+      "club_name": "밴드동아리",
+      "purpose": "합주 연습"
+    },
+    {
+      "facility": "세미나실A",
+      "date": "2026-10-02",
+      "start_time": "16:00",
+      "end_time": "18:00",
+      "club_name": "경영정보학회",
+      "purpose": "정기 회의"
+    }
+  ]
+}
