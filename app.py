@@ -1,8 +1,21 @@
 """Web UI for the club facility booking agent (Streamlit). Run with: streamlit run app.py"""
 import contextlib
 import io
+import os
 
 import streamlit as st
+
+# Streamlit Community Cloud has no .env file — secrets are set in the app's
+# dashboard instead and read via st.secrets. Bridge them into os.environ
+# *before* importing src.agent, since src/config.py reads env vars at import time.
+# st.secrets raises if no secrets.toml exists at all (e.g. local runs that use
+# .env instead), so this step is skipped entirely in that case.
+try:
+    for _key in ("API_KEY", "BASE_URL", "MODEL", "MAX_TOOL_ROUNDS", "MAX_HISTORY_MESSAGES"):
+        if _key in st.secrets and _key not in os.environ:
+            os.environ[_key] = str(st.secrets[_key])
+except st.errors.StreamlitSecretNotFoundError:
+    pass
 
 from src.agent import CafeAgent
 from src.tools import data_store
