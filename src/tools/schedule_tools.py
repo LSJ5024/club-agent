@@ -125,6 +125,36 @@ def reserve_facility(facility_name: str, date: str, start_time: str, end_time: s
     }
 
 
+def cancel_reservation(facility_name: str, date: str, start_time: str) -> dict:
+    """Cancel the reservation at a facility/date/start_time. Call only after user confirmation."""
+    facilities = data_store.load("facilities")
+    if facility_name not in facilities:
+        return {"error": _UNKNOWN_FACILITY.format(name=facility_name)}
+
+    reservations = data_store.load("reservations")
+    records = reservations["records"]
+    for i, r in enumerate(records):
+        if r["facility"] == facility_name and r["date"] == date and r["start_time"] == start_time:
+            cancelled = records.pop(i)
+            data_store.save("reservations", reservations)
+            return {
+                "facility_name": cancelled["facility"],
+                "date": cancelled["date"],
+                "start_time": cancelled["start_time"],
+                "end_time": cancelled["end_time"],
+                "club_name": cancelled["club_name"],
+                "purpose": cancelled["purpose"],
+                "status": "cancelled",
+            }
+
+    return {
+        "error": (
+            f"No reservation found for {facility_name} on {date} starting at {start_time}. "
+            "Call check_schedule to see current bookings."
+        )
+    }
+
+
 CHECK_SCHEDULE_SCHEMA = {
     "type": "function",
     "function": {
@@ -181,6 +211,23 @@ RESERVE_FACILITY_SCHEMA = {
                 "purpose": {"type": "string", "description": "Short reason for the reservation, e.g. '정기 회의'."},
             },
             "required": ["facility_name", "date", "start_time", "end_time", "club_name", "purpose"],
+        },
+    },
+}
+
+CANCEL_RESERVATION_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "cancel_reservation",
+        "description": "Cancel an existing reservation identified by facility, date, and start time. Only call after the user confirms.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "facility_name": {"type": "string", "description": "Exact facility name, e.g. '세미나실A'."},
+                "date": {"type": "string", "description": "Date as 'YYYY-MM-DD'."},
+                "start_time": {"type": "string", "description": "Start time as 'HH:MM', must match an existing reservation."},
+            },
+            "required": ["facility_name", "date", "start_time"],
         },
     },
 }

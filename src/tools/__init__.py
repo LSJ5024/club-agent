@@ -8,9 +8,11 @@ When you add a tool: import its function and schema, then add both below.
 from src.tools.calculator import CALCULATE_SCHEMA, calculate
 from src.tools.facility_tools import GET_FACILITY_INFO_SCHEMA, get_facility_info
 from src.tools.schedule_tools import (
+    CANCEL_RESERVATION_SCHEMA,
     CHECK_SCHEDULE_SCHEMA,
     FIND_AVAILABLE_SLOT_SCHEMA,
     RESERVE_FACILITY_SCHEMA,
+    cancel_reservation,
     check_schedule,
     find_available_slot,
     reserve_facility,
@@ -22,6 +24,7 @@ TOOL_SCHEMAS = [
     CHECK_SCHEDULE_SCHEMA,
     FIND_AVAILABLE_SLOT_SCHEMA,
     RESERVE_FACILITY_SCHEMA,
+    CANCEL_RESERVATION_SCHEMA,
 ]
 
 TOOL_FUNCTIONS = {
@@ -30,4 +33,5 @@ TOOL_FUNCTIONS = {
     "check_schedule": check_schedule,
     "find_available_slot": find_available_slot,
     "reserve_facility": reserve_facility,
+    "cancel_reservation": cancel_reservation,
 }

@@ -2,8 +2,8 @@
 
 An AI assistant for student club officers who need to reserve shared campus facilities
 (seminar rooms, the auditorium, the club room, the studio). Uses **many tools**
-(facility info, schedule check, free-slot finder, reservation, calculator) to answer
-questions and take actions — without ever double-booking a room.
+(facility info, schedule check, free-slot finder, reservation, cancellation, calculator) to
+answer questions and take actions — without ever double-booking a room.
 
 ## Setup
 ```bash

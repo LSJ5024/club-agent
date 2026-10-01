@@ -25,4 +25,4 @@ Prompt for your AI assistant:
 - [ ] **11. Description experiment.** Change `find_available_slot`'s description to "does stuff". Run Scenario B. What happens? Restore it and write 2 sentences about why in `tests/scenarios.md`.
 
 ## Part 5 — Stretch (optional)
-- [ ] **12. cancel_reservation.** Design a spec for it in `docs/03_tool_spec.md` first (type: write), then implement, register, and test it.
+- [x] **12. cancel_reservation.** Designed in `docs/03_tool_spec.md` first (type: write), implemented in `schedule_tools.py`, registered, tested (`pytest -k cancel_reservation`).

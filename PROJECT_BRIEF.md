@@ -10,7 +10,7 @@
 | 역할 | 담당자 | 담당 도구 | 담당 파일 |
 |---|---|---|---|
 | Lead + Designer | 이상준 | `get_facility_info`, `find_available_slot` | `docs/01_brief.md`, `docs/03_tool_spec.md`, `src/tools/facility_tools.py`, `src/tools/schedule_tools.py`(find_available_slot) |
-| Driver + Tester | 이한들 | `check_schedule`, `reserve_facility` | `src/tools/schedule_tools.py`(check_schedule, reserve_facility), `tests/scenarios.md`, `tests/test_tools.py` |
+| Driver + Tester | 이한들 | `check_schedule`, `reserve_facility`, `cancel_reservation` | `src/tools/schedule_tools.py`(check_schedule, reserve_facility, cancel_reservation), `tests/scenarios.md`, `tests/test_tools.py` |
 
 > `schedule_tools.py`는 두 사람의 도구가 함께 들어 있는 파일입니다 — 수정 전 서로 공유하고 작업하세요.
 > 두 사람 모두 어시스턴트가 쓴 코드를 전부 읽고, 자기 담당 도구는 시연에서 직접 설명할 수 있어야 합니다.
@@ -39,6 +39,7 @@
 - 기존 예약과 겹치지 않는 빈 시간대 탐색 (`find_available_slot`)
 - 대관료 등 금액 계산 (`calculate`, 카페 템플릿에서 재사용)
 - 운영시간·충돌 여부를 검증한 뒤 예약 기록, **사용자 확인 후에만 실행** (`reserve_facility`)
+- 기존 예약 취소, **사용자 확인 후에만 실행** (`cancel_reservation`)
 
 ---
 
@@ -127,11 +128,11 @@ python -m pytest tests           # 도구 테스트 (LLM 불필요)
 
 ## 11. 진행 상황
 
-- [x] 도구 4개 설계 및 구현 (read 2, write 1, compute 1) — 전부 완료, pytest 21개 통과
-- [x] 시나리오 3개(연쇄 호출 / 쓰기 전 확인 / 오류 회복) 라이브 검증 완료
-- [x] Streamlit 웹 UI 추가 구현
+- [x] 도구 5개 설계 및 구현 (read 2, write 2, compute 1) — 전부 완료, pytest 26개 통과
+- [x] 시나리오 3개(연쇄 호출 / 쓰기 전 확인 / 오류 회복) + 취소 시나리오 라이브 검증 완료
+- [x] Streamlit 웹 UI 추가 구현 (Streamlit Community Cloud 배포 준비 완료)
+- [x] 스트레치: `cancel_reservation` 도구
 - [ ] Task 9~11: 강건성 실험, 히스토리 트리밍 확인, description 실험 (`docs/04_tasks.md` 참고)
-- [ ] 스트레치: `cancel_reservation` 도구 (선택)
 
 ---
 

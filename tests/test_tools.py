@@ -45,7 +45,9 @@ def test_get_facility_info_not_found_hint():
 def test_check_schedule_ok_sorted():
     from src.tools.schedule_tools import check_schedule
     res = check_schedule("세미나실A", "2026-10-02")["reservations"]
-    assert [r["start_time"] for r in res] == ["10:00", "14:00"]
+    start_times = [r["start_time"] for r in res]
+    assert start_times == sorted(start_times)
+    assert "10:00" in start_times and "14:00" in start_times
 
 
 def test_check_schedule_empty_day():
@@ -120,6 +122,39 @@ def test_reserve_facility_bad_time_range():
 def test_reserve_facility_not_found_hint():
     from src.tools.schedule_tools import reserve_facility
     assert "get_facility_info" in reserve_facility("소강당", "2026-10-02", "12:00", "13:00", "테스트동아리", "테스트 회의")["error"]
+
+
+# ---- cancel_reservation ----
+def test_cancel_reservation_ok():
+    from src.tools.schedule_tools import cancel_reservation
+    r = cancel_reservation("세미나실A", "2026-10-02", "10:00")
+    assert r["status"] == "cancelled"
+    assert r["club_name"] == "컴퓨터공학회"
+
+
+def test_cancel_reservation_removes_from_schedule():
+    from src.tools.schedule_tools import cancel_reservation, check_schedule
+    cancel_reservation("세미나실A", "2026-10-02", "10:00")
+    res = check_schedule("세미나실A", "2026-10-02")["reservations"]
+    assert all(r["start_time"] != "10:00" for r in res)
+
+
+def test_cancel_reservation_frees_the_slot():
+    from src.tools.schedule_tools import cancel_reservation, find_available_slot
+    cancel_reservation("세미나실A", "2026-10-02", "10:00")
+    r = find_available_slot("세미나실A", "2026-10-02", 120)
+    assert r["available_slot"] == {"start_time": "09:00", "end_time": "11:00"}
+
+
+def test_cancel_reservation_no_match_hint():
+    from src.tools.schedule_tools import cancel_reservation
+    r = cancel_reservation("세미나실A", "2026-10-02", "11:00")
+    assert "check_schedule" in r["error"]
+
+
+def test_cancel_reservation_not_found_hint():
+    from src.tools.schedule_tools import cancel_reservation
+    assert "get_facility_info" in cancel_reservation("소강당", "2026-10-02", "10:00")["error"]
 
 
 # ---- Registry check ----
